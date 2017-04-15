@@ -42,7 +42,10 @@ public class StudyGroupBean {
             StudyGroup dummyStudyGroup2 = new StudyGroup("Test Stduy group 2");
             StudyGroup dummyStudyGroup3 = new StudyGroup("Test Stduy group 3");
             studyGroups.addAll(Arrays.asList(dummyStudyGroup1, dummyStudyGroup2, dummyStudyGroup3));
+        } else {
+            studyGroups = studyGroupService.findAll();
         }
+
         return studyGroups;
     }
 

@@ -2,9 +2,6 @@ package cz.vse.xkadp12.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by Admin on 15.4.2017.
- */
 @Entity
 @Table(name = "CB_STUDY_GROUP")
 public class StudyGroup {
