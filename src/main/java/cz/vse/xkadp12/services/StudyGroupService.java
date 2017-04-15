@@ -17,4 +17,7 @@ public class StudyGroupService {
         return (List) studyGroupRepository.findAll();
     }
 
+    public void saveStudyGroup(StudyGroup studyGroup) {
+        studyGroupRepository.save(studyGroup);
+    }
 }
