@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class StudyGroupBean {
     private StudyGroupService studyGroupService;
 
     private List<StudyGroup> studyGroups;
+    private StudyGroup studyGroup = new StudyGroup();
 
     @PostConstruct
     public void loadStudyGroups() {
@@ -39,7 +42,10 @@ public class StudyGroupBean {
             StudyGroup dummyStudyGroup2 = new StudyGroup("Test Stduy group 2");
             StudyGroup dummyStudyGroup3 = new StudyGroup("Test Stduy group 3");
             studyGroups.addAll(Arrays.asList(dummyStudyGroup1, dummyStudyGroup2, dummyStudyGroup3));
+        } else {
+            studyGroups = studyGroupService.findAll();
         }
+
         return studyGroups;
     }
 
@@ -59,11 +65,31 @@ public class StudyGroupBean {
         this.studyGroupService = studyGroupService;
     }
 
+    public String saveStudyGroup() {
+        logger.info("Saving StudyGroup: " + studyGroup.toString());
+        if(studyGroup == null) {
+            FacesContext.getCurrentInstance().addMessage("Name is required", new FacesMessage("Please provide a valid student group name"));
+            return "overview";
+        }
+        studyGroupService.saveStudyGroup(studyGroup);
+        logger.info("Study group successfully saved...");
+        studyGroup = new StudyGroup();
+        return "overview";
+    }
+
     public StudentService getStudentService() {
         return studentService;
     }
 
     public void setStudentService(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    public StudyGroup getStudyGroup() {
+        return studyGroup;
+    }
+
+    public void setStudyGroup(StudyGroup studyGroup) {
+        this.studyGroup = studyGroup;
     }
 }
