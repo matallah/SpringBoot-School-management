@@ -4,17 +4,19 @@ import cz.vse.xkadp12.domain.Student;
 import cz.vse.xkadp12.domain.StudyGroup;
 import cz.vse.xkadp12.services.StudentService;
 import cz.vse.xkadp12.services.StudyGroupService;
+import cz.vse.xkadp12.utils.FacesMessageFactory;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @ManagedBean
 @SessionScoped
@@ -22,13 +24,16 @@ public class StudyGroupBean {
 
     Logger logger = LoggerFactory.getLogger(StudyGroupBean.class);
 
-    @ManagedProperty(value =  "#{studentService}")
+    @ManagedProperty(value = "#{studentService}")
     private StudentService studentService;
     @ManagedProperty(value = "#{studyGroupService}")
     private StudyGroupService studyGroupService;
 
     private List<StudyGroup> studyGroups;
+
     private StudyGroup studyGroup = new StudyGroup();
+
+    private StudyGroup currentStudyGroup = new StudyGroup();
 
     @PostConstruct
     public void loadStudyGroups() {
@@ -36,21 +41,30 @@ public class StudyGroupBean {
         studyGroups = studyGroupService.findAll();
     }
 
-    public List<StudyGroup> getStudyGroups() {
-        if(studyGroups.isEmpty()) {
-            StudyGroup dummyStudyGroup1 = new StudyGroup("Test Stduy group 1");
-            StudyGroup dummyStudyGroup2 = new StudyGroup("Test Stduy group 2");
-            StudyGroup dummyStudyGroup3 = new StudyGroup("Test Stduy group 3");
-            studyGroups.addAll(Arrays.asList(dummyStudyGroup1, dummyStudyGroup2, dummyStudyGroup3));
-        } else {
-            studyGroups = studyGroupService.findAll();
-        }
-
-        return studyGroups;
+    public void selectStudents(StudyGroup studyGroup) {
+        currentStudyGroup = studyGroup;
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("selectStudents", options, null);
     }
 
-    public List<Student> getStudentsForStudyGroup(String studdyGroupName) {
-       return studentService.findByClassName(studdyGroupName);
+    public String saveStudyGroup() {
+        studyGroupService.saveStudyGroup(studyGroup);
+        studyGroup = new StudyGroup();
+        studyGroups = studyGroupService.findAll();
+        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.saveSuccessfull());
+        return "overview";
+    }
+
+    public List<Student> getStudentsForCurrentGroup() {
+        return studentService.findAll();
+    }
+
+
+    public List<StudyGroup> getStudyGroups() {
+        return studyGroups;
     }
 
     public void setStudyGroups(List<StudyGroup> studyGroups) {
@@ -63,18 +77,6 @@ public class StudyGroupBean {
 
     public void setStudyGroupService(StudyGroupService studyGroupService) {
         this.studyGroupService = studyGroupService;
-    }
-
-    public String saveStudyGroup() {
-        logger.info("Saving StudyGroup: " + studyGroup.toString());
-        if(studyGroup == null) {
-            FacesContext.getCurrentInstance().addMessage("Name is required", new FacesMessage("Please provide a valid student group name"));
-            return "overview";
-        }
-        studyGroupService.saveStudyGroup(studyGroup);
-        logger.info("Study group successfully saved...");
-        studyGroup = new StudyGroup();
-        return "overview";
     }
 
     public StudentService getStudentService() {
@@ -91,5 +93,13 @@ public class StudyGroupBean {
 
     public void setStudyGroup(StudyGroup studyGroup) {
         this.studyGroup = studyGroup;
+    }
+
+    public StudyGroup getCurrentStudyGroup() {
+        return currentStudyGroup;
+    }
+
+    public void setCurrentStudyGroup(StudyGroup currentStudyGroup) {
+        this.currentStudyGroup = currentStudyGroup;
     }
 }

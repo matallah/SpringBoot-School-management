@@ -23,4 +23,8 @@ public class StudentService {
     public List<Student> findByClassName(String studyGroupName) {
         return (List) studentRepository.findByStudyGroupName(studyGroupName);
     }
+
+    public void saveStudent(Student student) {
+        studentRepository.save(student);
+    }
 }
