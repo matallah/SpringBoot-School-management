@@ -29,6 +29,7 @@ public class SelectStudentsBean {
             student.setStudyGroup(studyGroupBean.getCurrentStudyGroup());
             studentService.saveStudent(student);
         }
+
     }
 
     public List<Student> getSelectedStudents() {
