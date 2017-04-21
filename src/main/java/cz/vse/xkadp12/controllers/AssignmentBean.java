@@ -21,6 +21,9 @@ public class AssignmentBean {
     @ManagedProperty(value = "#{solutionStoreService}")
     private SolutionStoreService solutionStoreService;
 
+    @ManagedProperty(value = "#{solutionStoreBean}")
+    private SolutionStoreBean solutionStoreBean;
+
     private Assignment assignment = new Assignment();
 
     private List<Assignment> assignments = new ArrayList<>();
@@ -35,17 +38,16 @@ public class AssignmentBean {
         return "/assignments?faces-redirect=true";
     }
 
+    public String showDetail() {
+        return "assignmentDetail";
+    }
+
     private SolutionStore createSolutionStore() {
         return new SolutionStore(assignment);
     }
 
     private void resetAssignment() {
         this.assignment = new Assignment();
-    }
-
-    private void formatDate() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.mm.yyyy");
-
     }
 
     public AssignmentService getAssignmentService() {
@@ -79,5 +81,13 @@ public class AssignmentBean {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    public SolutionStoreBean getSolutionStoreBean() {
+        return solutionStoreBean;
+    }
+
+    public void setSolutionStoreBean(SolutionStoreBean solutionStoreBean) {
+        this.solutionStoreBean = solutionStoreBean;
     }
 }

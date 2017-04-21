@@ -12,10 +12,20 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <div class="card">
-                        <h1>Assignment - #{assignmentDetail.name}</h1>
+                        <h1>#{assignmentDetail.name}</h1>
                         <p:growl id="growl" showDetail="true" sticky="false" />
+                        <p:outputLabel styleClass="ui-g-4" value="Valid from: #{assignmentDetail.validFrom}"/>
+                        <p:outputLabel styleClass="ui-g-4" value="Valid from: #{assignmentDetail.validThrough}"/>
+                        <p:commandButton value="Edit" icon="fa fa-pencil" iconPos="right" styleClass="right"/>
                     </div>
+                    <div class="card">
+                        <p:outputPanel>#{assignmentDetail.description.isEmpty() ? "No data found..." : assignmentDetail.description}</p:outputPanel>
+                    </div>
+                    <div class="card">
+                        <p:dataTable>
 
+                        </p:dataTable>
+                    </div>
                 </div>
             </div>
         </h:form>

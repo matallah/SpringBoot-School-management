@@ -21,7 +21,9 @@
                         <p:column>#{assignmentRecord.validFrom}</p:column>
                         <p:column>#{assignmentRecord.validThrough}</p:column>
                         <p:column>
-                            <p:commandButton actionListener="#" value="Detail" icon="fa fa-search" iconPos="right"/>
+                            <p:commandButton action="#{assignmentBean.showDetail()}" value="Detail" icon="fa fa-search" iconPos="right">
+                                <f:setPropertyActionListener value="#{assignmentRecord}" target="#{assignmentBean.assignment}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
 

@@ -1,5 +1,6 @@
 package cz.vse.xkadp12.controllers;
 
+import cz.vse.xkadp12.domain.Solution;
 import cz.vse.xkadp12.domain.SolutionStore;
 import cz.vse.xkadp12.services.SolutionStoreService;
 
