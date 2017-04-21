@@ -4,6 +4,7 @@ package cz.vse.xkadp12.utils;
 import cz.vse.xkadp12.controllers.StudyGroupBean;
 import cz.vse.xkadp12.domain.Student;
 import cz.vse.xkadp12.services.StudentService;
+import org.primefaces.context.RequestContext;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,7 +30,8 @@ public class SelectStudentsBean {
             student.setStudyGroup(studyGroupBean.getCurrentStudyGroup());
             studentService.saveStudent(student);
         }
-
+        RequestContext.getCurrentInstance().closeDialog(selectedStudents);
+        selectedStudents = new ArrayList<>();
     }
 
     public List<Student> getSelectedStudents() {

@@ -38,7 +38,7 @@ public class StudentBean {
         studentService.saveStudent(student);
         students = studentService.findAll();
         student = new Student();
-        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.saveSuccessfull());
+        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.onObjectCreation(student));
         return "studentsOverview";
     }
 

@@ -29,7 +29,7 @@
                     <p:tabView id="studyGroupTabView" value="#{studyGroupBean.studyGroups}" var="studyGroupRecord">
                         <p:tab title="#{studyGroupRecord.name}">
 
-                            <p:dataTable value="#{studyGroupBean.getStudentsForCurrentGroup()}" var="student">
+                            <p:dataTable id="students" value="#{studyGroupBean.getStudentsForCurrentGroup()}" var="student">
 
                                 <p:column headerText="Name">#{student.name}</p:column>
                                 <p:column headerText="Study group">#{student.studyGroup.name}</p:column>
@@ -38,7 +38,9 @@
 
                             <p:commandButton
                                     action="#{studyGroupBean.selectStudents(studyGroupRecord)}"
-                                    value="Add students" style="margin-top: 10px;" process="@this"/>
+                                    value="Add students" style="margin-top: 10px;" process="@this">
+                                <p:ajax event="dialogReturn" update="students"/>
+                            </p:commandButton>
 
                         </p:tab>
                     </p:tabView>

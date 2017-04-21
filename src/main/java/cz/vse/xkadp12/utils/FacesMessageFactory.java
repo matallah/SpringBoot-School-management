@@ -34,4 +34,11 @@ public class FacesMessageFactory {
         return facesMessage;
     }
 
+    public static FacesMessage onObjectCreation(Object object) {
+        facesMessage.setSeverity(FacesMessage.SEVERITY_INFO);
+        facesMessage.setSummary("Success");
+        facesMessage.setDetail(object.getClass().getSimpleName() + " created...");
+        return facesMessage;
+    }
+
 }

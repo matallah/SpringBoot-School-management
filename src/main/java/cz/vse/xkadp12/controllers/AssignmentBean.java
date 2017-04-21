@@ -4,10 +4,14 @@ import cz.vse.xkadp12.domain.Assignment;
 import cz.vse.xkadp12.domain.SolutionStore;
 import cz.vse.xkadp12.services.AssignmentService;
 import cz.vse.xkadp12.services.SolutionStoreService;
+import cz.vse.xkadp12.utils.FacesMessageFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 public class AssignmentBean {
@@ -19,14 +23,16 @@ public class AssignmentBean {
 
     private Assignment assignment = new Assignment();
 
-    public void saveAssignment() {
+    private List<Assignment> assignments = new ArrayList<>();
 
-
+    public String saveAssignment() {
         assignmentService.saveAssignment(assignment);
         // create SolutionStore
         solutionStoreService.saveSolutionStore(createSolutionStore());
         resetAssignment();
         // send email
+        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.onObjectCreation(assignment));
+        return "/assignments?faces-redirect=true";
     }
 
     private SolutionStore createSolutionStore() {
@@ -64,5 +70,14 @@ public class AssignmentBean {
 
     public void setSolutionStoreService(SolutionStoreService solutionStoreService) {
         this.solutionStoreService = solutionStoreService;
+    }
+
+    public List<Assignment> getAssignments() {
+        assignments = assignmentService.findAll();
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
 }

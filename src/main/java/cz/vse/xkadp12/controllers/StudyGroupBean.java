@@ -54,7 +54,7 @@ public class StudyGroupBean {
         studyGroupService.saveStudyGroup(studyGroup);
         studyGroup = new StudyGroup();
         studyGroups = studyGroupService.findAll();
-        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.saveSuccessfull());
+        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.onObjectCreation(studyGroup));
         return "overview";
     }
 

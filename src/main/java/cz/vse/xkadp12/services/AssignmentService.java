@@ -5,6 +5,8 @@ import cz.vse.xkadp12.repositories.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AssignmentService {
 
@@ -13,6 +15,10 @@ public class AssignmentService {
 
     public void saveAssignment(Assignment assignment){
         assignmentRepository.save(assignment);
+    }
+
+    public List<Assignment> findAll() {
+        return (List) assignmentRepository.findAll();
     }
 
     public AssignmentRepository getAssignmentRepository() {
