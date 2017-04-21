@@ -12,7 +12,17 @@ public class AssignmentBean {
     @ManagedProperty(value = "#{assignmentService}")
     private AssignmentService assignmentService;
 
-    private Assignment newAssignment;
+    private Assignment assignment = new Assignment();
+
+    public void saveAssignment() {
+        assignmentService.saveAssignment(assignment);
+        resetAssignment();
+        // send email
+    }
+
+    private void resetAssignment() {
+        this.assignment = new Assignment();
+    }
 
     public AssignmentService getAssignmentService() {
         return assignmentService;
@@ -22,11 +32,11 @@ public class AssignmentBean {
         this.assignmentService = assignmentService;
     }
 
-    public Assignment getNewAssignment() {
-        return newAssignment;
+    public Assignment getAssignment() {
+        return assignment;
     }
 
-    public void setNewAssignment(Assignment newAssignment) {
-        this.newAssignment = newAssignment;
+    public void setAssignment(Assignment newAssignment) {
+        this.assignment = newAssignment;
     }
 }

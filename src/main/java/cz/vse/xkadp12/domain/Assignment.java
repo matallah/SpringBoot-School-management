@@ -1,11 +1,10 @@
 package cz.vse.xkadp12.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
-@Entity(name = "CB_ASSIGNMENT")
+@Entity
+@Table(name = "CB_ASSIGNMENT")
 public class Assignment {
 
     @Id
@@ -13,6 +12,8 @@ public class Assignment {
     private Long id;
     private String name;
     private String description;
+    private Date validFrom;
+    private Date validThrough;
 
     public Assignment() {}
 
@@ -38,5 +39,21 @@ public class Assignment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public Date getValidThrough() {
+        return validThrough;
+    }
+
+    public void setValidThrough(Date validThrough) {
+        this.validThrough = validThrough;
     }
 }
