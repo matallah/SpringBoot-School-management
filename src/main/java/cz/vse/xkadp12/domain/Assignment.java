@@ -11,6 +11,7 @@ public class Assignment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @Column(columnDefinition = "text", length = 1000)
     private String description;
     private Date validFrom;
     private Date validThrough;

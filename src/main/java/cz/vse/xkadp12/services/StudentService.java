@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Admin on 7.4.2017.
- */
 @Service
 public class StudentService {
 

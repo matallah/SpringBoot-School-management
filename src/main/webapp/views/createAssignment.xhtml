@@ -18,6 +18,7 @@
                     <div class="ui-g ui-fluid">
                         <div class="ui-g-7">
                             <div class="card">
+                                <h3>Basic Info</h3>
                                 <p:inputText
                                         id="assignmentName"
                                         value="#{assignment.name}"
@@ -25,7 +26,11 @@
                                 <p:inputTextarea
                                         value="#{assignment.description}"
                                         placeholder="Description"
+                                        counter="display" maxlength="1000"
+                                        counterTemplate="{0} characters remaining."
                                         style="margin-top: 10px"/>
+                                <h:outputText id="display" />
+                                <br/>
                                 <div class="ui-g-6">
                                     <div><p:calendar
                                             value="#{assignment.validFrom}"
@@ -44,7 +49,7 @@
                         </div>
                         <div class="ui-g-5">
                             <div class="card">
-
+                                <h3>Assignment Files</h3>
                                 <p:fileUpload fileUploadListener="#" mode="advanced"
                                               dragDropSupport="false"
                                               sizeLimit="400000" fileLimit="3"
