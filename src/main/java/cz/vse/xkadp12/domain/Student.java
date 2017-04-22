@@ -1,9 +1,8 @@
 package cz.vse.xkadp12.domain;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "CB_STUDENT")
@@ -16,7 +15,6 @@ public class Student {
     private String name;
 
     @ManyToOne
-//     @OnDelete(action = OnDeleteAction.CASCADE)
     private StudyGroup studyGroup;
 
     public Student(){}

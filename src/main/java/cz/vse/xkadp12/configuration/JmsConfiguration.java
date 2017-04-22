@@ -9,9 +9,6 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import javax.jms.ConnectionFactory;
 
 
-/**
- * Created by Admin on 15.4.2017.
- */
 @Configuration
 public class JmsConfiguration {
 

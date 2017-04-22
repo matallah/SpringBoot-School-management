@@ -3,18 +3,17 @@ package cz.vse.xkadp12.controllers;
 import cz.vse.xkadp12.domain.Student;
 import cz.vse.xkadp12.domain.StudyGroup;
 import cz.vse.xkadp12.services.StudentService;
+import cz.vse.xkadp12.utils.FacesMessageFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Admin on 7.4.2017.
- */
 @ManagedBean
 @SessionScoped
 public class StudentBean {
@@ -22,32 +21,29 @@ public class StudentBean {
     @ManagedProperty(value = "#{studentService}")
     private StudentService studentService;
 
-    private List<Student> studnets = new ArrayList<>();
+    private Student student = new Student();
+    private List<Student> students = new ArrayList<>();
     private List<Student> selectedStudents = new ArrayList<>();
 
     @PostConstruct
     public void loadStudents() {
-        studnets = studentService.findAll();
+        students = studentService.findAll();
     }
 
-    public List<Student> getStudnets() {
-        if(studnets.isEmpty()) {
-
-            StudyGroup studyGroup = new StudyGroup("Study group 1");
-            StudyGroup studyGroup1 = new StudyGroup("Study group 2");
-
-            Student student1 = new Student("Petr Kadlec", studyGroup);
-            Student student2 = new Student("John Doe", studyGroup);
-            Student student3 = new Student("Obi-Wan Kenobi", studyGroup1);
-            Student student4 = new Student("Alois Jirasek", studyGroup1);
-
-            this.studnets.addAll(Arrays.asList(student1, student2, student3, student4));
-        }
-        return studnets;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setStudnets(List<Student> studnets) {
-        this.studnets = studnets;
+    public String saveStudent() {
+        studentService.saveStudent(student);
+        students = studentService.findAll();
+        student = new Student();
+        FacesContext.getCurrentInstance().addMessage(null, FacesMessageFactory.onObjectCreation(student));
+        return "studentsOverview";
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public StudentService getStudentService() {
@@ -64,5 +60,13 @@ public class StudentBean {
 
     public void setSelectedStudents(List<Student> selectedStudents) {
         this.selectedStudents = selectedStudents;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

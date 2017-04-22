@@ -17,7 +17,7 @@
                 <p:tabView value="#{studyGroupBean.studyGroups}" var="studyGroup">
                     <p:tab title="#{studyGroup.name}">
 
-                        <p:dataTable value="#{studentBean.studnets}" var="student">
+                        <p:dataTable value="#{studentBean.students}" var="student">
 
                             <p:column headerText="Name">#{student.name}</p:column>
                             <p:column headerText="Study group">#{student.studyGroup.name}</p:column>
