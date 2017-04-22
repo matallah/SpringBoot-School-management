@@ -2,6 +2,7 @@ package cz.vse.xkadp12.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "CB_SOLUTION_STORE")
@@ -12,10 +13,11 @@ public class SolutionStore {
     private Long id;
     private boolean opened = true;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Solution> solutions;
-
+    private List<Solution> solutions; // submitted
     @OneToOne
     private Assignment assignment;
+    @OneToMany
+    private List<StudyGroup> studyGroups;
 
     public SolutionStore() {
     }
@@ -55,5 +57,13 @@ public class SolutionStore {
 
     public void setSolutions(List<Solution> solutions) {
         this.solutions = solutions;
+    }
+
+    public List<StudyGroup> getStudyGroups() {
+        return studyGroups;
+    }
+
+    public void setStudyGroups(List<StudyGroup> studyGroups) {
+        this.studyGroups = studyGroups;
     }
 }

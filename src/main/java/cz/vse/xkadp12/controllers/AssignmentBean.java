@@ -2,6 +2,7 @@ package cz.vse.xkadp12.controllers;
 
 import cz.vse.xkadp12.domain.Assignment;
 import cz.vse.xkadp12.domain.SolutionStore;
+import cz.vse.xkadp12.domain.StudyGroup;
 import cz.vse.xkadp12.services.AssignmentService;
 import cz.vse.xkadp12.services.SolutionStoreService;
 import cz.vse.xkadp12.utils.FacesMessageFactory;
@@ -20,13 +21,12 @@ public class AssignmentBean {
     private AssignmentService assignmentService;
     @ManagedProperty(value = "#{solutionStoreService}")
     private SolutionStoreService solutionStoreService;
-
     @ManagedProperty(value = "#{solutionStoreBean}")
     private SolutionStoreBean solutionStoreBean;
 
     private Assignment assignment = new Assignment();
-
     private List<Assignment> assignments = new ArrayList<>();
+    private List<StudyGroup> selectedStudyGroups = new ArrayList<>();
 
     public String saveAssignment() {
         assignmentService.saveAssignment(assignment);
@@ -43,7 +43,10 @@ public class AssignmentBean {
     }
 
     private SolutionStore createSolutionStore() {
-        return new SolutionStore(assignment);
+        SolutionStore solutionStore = new SolutionStore();
+        solutionStore.setAssignment(assignment);
+        solutionStore.setStudyGroups(selectedStudyGroups);
+        return solutionStore;
     }
 
     private void resetAssignment() {
@@ -89,5 +92,13 @@ public class AssignmentBean {
 
     public void setSolutionStoreBean(SolutionStoreBean solutionStoreBean) {
         this.solutionStoreBean = solutionStoreBean;
+    }
+
+    public List<StudyGroup> getSelectedStudyGroups() {
+        return selectedStudyGroups;
+    }
+
+    public void setSelectedStudyGroups(List<StudyGroup> selectedStudyGroups) {
+        this.selectedStudyGroups = selectedStudyGroups;
     }
 }

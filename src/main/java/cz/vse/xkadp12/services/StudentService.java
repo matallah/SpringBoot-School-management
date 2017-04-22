@@ -17,8 +17,8 @@ public class StudentService {
         return (List) studentRepository.findAll();
     }
 
-    public List<Student> findByClassName(String studyGroupName) {
-        return (List) studentRepository.findByStudyGroupName(studyGroupName);
+    public List<Student> findByStudyGroupId(Long studyGroupId) {
+        return (List) studentRepository.findByStudyGroupId(studyGroupId);
     }
 
     public void saveStudent(Student student) {

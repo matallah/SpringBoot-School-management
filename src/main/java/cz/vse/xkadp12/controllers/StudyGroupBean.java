@@ -58,10 +58,13 @@ public class StudyGroupBean {
         return "overview";
     }
 
+    public List<Student> loadStudentForSelectedGroup(Long studyGroupId) {
+        return studentService.findByStudyGroupId(studyGroupId);
+    }
+
     public List<Student> getStudentsForCurrentGroup() {
         return studentService.findAll();
     }
-
 
     public List<StudyGroup> getStudyGroups() {
         return studyGroups;

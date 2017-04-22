@@ -29,7 +29,7 @@
                     <p:tabView id="studyGroupTabView" value="#{studyGroupBean.studyGroups}" var="studyGroupRecord">
                         <p:tab title="#{studyGroupRecord.name}">
 
-                            <p:dataTable id="students" value="#{studyGroupBean.getStudentsForCurrentGroup()}" var="student">
+                            <p:dataTable id="students" value="#{studyGroupBean.loadStudentForSelectedGroup(studyGroupRecord.id)}" var="student">
 
                                 <p:column headerText="Name">#{student.name}</p:column>
                                 <p:column headerText="Study group">#{student.studyGroup.name}</p:column>
