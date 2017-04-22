@@ -21,6 +21,10 @@ public class SolutionStoreService {
         return (List) solutionStoreRepository.findAll();
     }
 
+    public SolutionStore findByAssignmentId(Long id) {
+        return solutionStoreRepository.findByAssignmentId(id);
+    }
+
     public SolutionStoreRepository getSolutionStoreRepository() {
         return solutionStoreRepository;
     }

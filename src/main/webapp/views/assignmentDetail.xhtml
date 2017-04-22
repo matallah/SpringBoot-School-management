@@ -6,6 +6,7 @@
                 template="/WEB-INF/template.xhtml">
 
     <ui:param name="assignmentDetail" value="#{assignmentBean.assignment}"/>
+    <ui:param name="solutionStore" value="#{solutionStoreBean.getSolutionStoreByAssignmentId(assignmentDetail.id)}"/>
 
     <ui:define name="content">
         <h:form>
@@ -22,8 +23,8 @@
                         <p:outputPanel>#{assignmentDetail.description.isEmpty() ? "No data found..." : assignmentDetail.description}</p:outputPanel>
                     </div>
                     <div class="card">
-                        <p:dataTable>
-
+                        <p:dataTable value="#{solutionStore.studyGroups}" var="studyGroup">
+                            <p:column>#{studyGroup.name}</p:column>
                         </p:dataTable>
                     </div>
                 </div>

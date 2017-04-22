@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SolutionStoreRepository extends CrudRepository<SolutionStore, Long> {
 
+    public SolutionStore findByAssignmentId(Long id);
 }

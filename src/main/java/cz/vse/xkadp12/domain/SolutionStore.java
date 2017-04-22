@@ -1,5 +1,8 @@
 package cz.vse.xkadp12.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +20,7 @@ public class SolutionStore {
     @OneToOne
     private Assignment assignment;
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<StudyGroup> studyGroups;
 
     public SolutionStore() {
