@@ -14,7 +14,7 @@
                     <div class="card">
                         <h1>Overview</h1>
                         <p>Use this form to create a new student group.</p>
-                        <p:growl id="growl" showDetail="true" sticky="false" />
+                        <p:growl id="growl" showDetail="true" sticky="false"/>
                         <p:outputLabel for="studyGroupName" value="Name: " style="cursor: pointer"/>
                         <p:inputText id="studyGroupName" required="true" value="#{studyGroup.name}"
                                      style="cursor: pointer"/>
@@ -29,7 +29,9 @@
                     <p:tabView id="studyGroupTabView" value="#{studyGroupBean.studyGroups}" var="studyGroupRecord">
                         <p:tab title="#{studyGroupRecord.name}">
 
-                            <p:dataTable id="students" value="#{studyGroupBean.loadStudentForSelectedGroup(studyGroupRecord.id)}" var="student">
+                            <p:dataTable id="students"
+                                         value="#{studyGroupBean.loadStudentForSelectedGroup(studyGroupRecord.id)}"
+                                         var="student">
 
                                 <p:column headerText="Name">#{student.name}</p:column>
                                 <p:column headerText="Study group">#{student.studyGroup.name}</p:column>
